@@ -29,20 +29,24 @@ interface Product {
 }
 
 const Dashboard: React.FC = () => {
+  // FUNÇÃO VINDA DO CONTEXTO
   const { addToCart } = useCart();
 
   const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
+    // EFETUANDO LISTAGEM DOS PRODUTOS NA PAGINA DE DASHBOARD
     async function loadProducts(): Promise<void> {
-      // TODO
+      // MANEIRA MAIS AMIGAVEL PARA RETORNAR TODOS OS ELEMENTOS DA FAKE API
+      const response = await api.get('/products');
+      setProducts(response.data);
     }
-
     loadProducts();
   }, []);
 
   function handleAddToCart(item: Product): void {
-    // TODO
+    // APENAS PASSANDO O ITEM QUE JÁ ESTÁ NO FORMATO PRODUCT
+    addToCart(item);
   }
 
   return (
